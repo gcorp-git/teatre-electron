@@ -19,6 +19,7 @@
         "noFallthroughCasesInSwitch": false
     },
 	"include": [
-		"src/**/*.ts"
+		"src/**/*.ts",
+		"teatre/dist/**/*.ts"
 	]
 }
