@@ -10,9 +10,7 @@ import { MainScenario } from './scenarios/main.scenario'
     smoothing: false,
   },
   assets: {
-    images: [
-      'traveler.png',
-    ],
+    images: [],
   },
 })
 export class SnakePlay extends Play.Class {
