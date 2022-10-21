@@ -1,5 +1,7 @@
 import { Actor } from '../../../teatre/dist/server/decorators/actor.decorator'
 import { ConfigService } from '../../../teatre/dist/server/services/config.service'
+import { ScenariosService } from '../../../teatre/dist/server/services/scenarios.service'
+import { StatsService } from '../services/stats.service'
 import { SceneObject } from '../../../teatre/dist/server/services/stage/scene-object'
 import { Sprite } from '../../../teatre/dist/server/services/stage/sprite'
 import { DraftSource } from '../../../teatre/dist/server/services/stage/sources/draft'
@@ -7,6 +9,7 @@ import { SnakeBody } from './snake/body'
 import { ring } from '../../../teatre/dist/utils/etc'
 import { FoodActor } from './food.actor'
 import { MainScenario } from '../scenarios/main.scenario'
+import { DefeatScenario } from '../scenarios/defeat.scenario'
 
 @Actor()
 export class SnakeActor extends Actor.Class {
@@ -19,7 +22,11 @@ export class SnakeActor extends Actor.Class {
   private _isAlive = false
   private _object: SceneObject
 
-  constructor(private config: ConfigService) {
+  constructor(
+    private config: ConfigService,
+    private scenarios: ScenariosService,
+    private stats: StatsService,
+  ) {
     super()
 
     this.DEFAULT_BODY_CELL.x = this.config.stage.width / 2
@@ -63,7 +70,7 @@ export class SnakeActor extends Actor.Class {
 		
 		this.body.cells.length = 1
 
-    this.scene.add(this._object)
+    this.scenario.scene.add(this._object)
   }
 
   onDisable(): void {
@@ -72,7 +79,7 @@ export class SnakeActor extends Actor.Class {
     this.vx = 0
     this.vy = 0
 
-    this.scene.remove(this._object)
+    this.scenario.scene.remove(this._object)
   }
 
   tick(): void {
@@ -88,7 +95,7 @@ export class SnakeActor extends Actor.Class {
 			this.place(x, y)
 		}
 
-		if (!this._isAlive) this.scenario.defeat()
+    if (!this._isAlive) this.scenarios.push(DefeatScenario)
   }
 
   turn(dx: number, dy: number): void {
@@ -125,7 +132,7 @@ export class SnakeActor extends Actor.Class {
 		this.body.add(food.object.x, food.object.y)
 		this.body.draw()
 
-		this.scenario.addScore(1)
+    this.stats.score += 1
   }
 
   private _getNextCoords(): { x: number, y: number } {

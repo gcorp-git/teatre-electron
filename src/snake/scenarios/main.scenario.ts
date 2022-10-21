@@ -58,14 +58,6 @@ export class MainScenario extends Scenario.Class {
     this.stage.camera.detach()
   }
 
-  addScore(value: number): void {
-    this.stats.score += value
-  }
-
-  defeat(): void {
-    this.scenarios.push(DefeatScenario)
-  }
-
   _onKeyDown({ code }: { code: string }): void {
     let dx = 0
     let dy = 0

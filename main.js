@@ -5,6 +5,8 @@ const SCHEDULE = require('./dist/schedule').default
 
 function createWindowForPlay(index) {
   const win = new BrowserWindow({
+    useContentSize: true,
+    frame: false,
     width: 800,
     height: 600,
     webPreferences: {
@@ -13,7 +15,8 @@ function createWindowForPlay(index) {
     },
   })
 
-  win.setMenuBarVisibility(false)
+  // win.setMenuBarVisibility(false)
+  // win.removeMenu()
 
   const root = new Root({
     Play: SCHEDULE[index],

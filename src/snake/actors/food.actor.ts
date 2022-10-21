@@ -43,11 +43,11 @@ export class FoodActor extends Actor.Class {
   onEnable(): void {
     this.replace()
 
-    this.scene.add(this._object)
+    this.scenario.scene.add(this._object)
   }
 
   onDisable(): void {
-    this.scene.remove(this._object)
+    this.scenario.scene.remove(this._object)
   }
 
 	at(x: number, y: number): boolean {

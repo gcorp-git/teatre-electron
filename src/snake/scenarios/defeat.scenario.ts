@@ -18,7 +18,9 @@ export class DefeatScenario extends Scenario.Class {
   onEnable(data: any): void {
     this.data = data
 
-    alert(`YOU DIED\nSNAKE SIZE: ${this.stats.score}`);
+    // todo: alert is not defined (because it's node)
+    // alert(`YOU DIED\nSNAKE SIZE: ${this.stats.score}`);
+    console.log(`YOU DIED. SNAKE SIZE: ${this.stats.score}`);
 
 		this.scenarios.pop();
   }
