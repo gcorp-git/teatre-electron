@@ -31,7 +31,7 @@ function createWindowForPlay(index) {
 
   win.on('closed', () => root.stop())
 
-  win.webContents.openDevTools() // todo: @tmp
+  // win.webContents.openDevTools() // todo: @tmp
 }
 
 function loadAllPlays() {

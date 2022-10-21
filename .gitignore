@@ -2,9 +2,7 @@
 /node_modules
 /teatre
 /assets/images
-
-/src/*
-!/src/.gitkeep
+!/assets/images/.gitkeep
 
 # Logs
 logs
