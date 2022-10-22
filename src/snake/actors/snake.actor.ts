@@ -6,8 +6,7 @@ import { SceneObject } from '../../../teatre/dist/server/services/stage/scene-ob
 import { Sprite } from '../../../teatre/dist/server/services/stage/sprite'
 import { DraftSource } from '../../../teatre/dist/server/services/stage/sources/draft'
 import { MainScenario } from '../scenarios/main.scenario'
-import { DefeatScenario } from '../scenarios/defeat.scenario'
-import { SnakeBody } from './snake/body'
+import { SnakeBody } from './snake/snake-body'
 import { FoodActor } from './food.actor'
 import { ring } from '../../../teatre/dist/utils/etc'
 
@@ -81,7 +80,7 @@ export class SnakeActor extends Actor.Class {
       this.place(x, y)
     }
 
-    if (!this._isAlive) this.scenarios.push(DefeatScenario)
+    if (!this._isAlive) this.scenario.defeat()
   }
 
   turn(dx: number, dy: number): void {

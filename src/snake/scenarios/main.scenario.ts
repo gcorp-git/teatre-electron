@@ -1,9 +1,11 @@
 import { Scenario } from '../../../teatre/dist/server/decorators/scenario.decorator'
+import { ScenariosService } from '../../../teatre/dist/server/services/scenarios.service'
 import { EventsService, KEY } from '../../../teatre/dist/server/services/events.service'
+import { SubscriptionsService } from '../services/subscriptions.service'
 import { MainScene } from '../scenes/main.scene'
 import { SnakeActor } from '../actors/snake.actor'
 import { FoodActor } from '../actors/food.actor'
-import { SubscriptionsService } from '../services/subscriptions.service'
+import { DefeatScenario } from '../scenarios/defeat.scenario'
 
 @Scenario({
   scene: MainScene,
@@ -14,6 +16,7 @@ export class MainScenario extends Scenario.Class {
   private interval = 0.100
 
   constructor(
+    private scenarios: ScenariosService,
     private events: EventsService,
     private subscriptions: SubscriptionsService,
   ) {
@@ -51,5 +54,9 @@ export class MainScenario extends Scenario.Class {
 
       this.actor(SnakeActor).tick()
     }
+  }
+
+  defeat(): void {
+    this.scenarios.push(DefeatScenario)
   }
 }
