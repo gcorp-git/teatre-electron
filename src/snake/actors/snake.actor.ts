@@ -13,8 +13,8 @@ import { ring } from '../../../teatre/dist/utils/etc'
 
 @Actor()
 export class SnakeActor extends Actor.Class {
-  private scenario: MainScenario
   private DEFAULT_BODY_CELL: { x: number, y: number } = { x: 0, y: 0 }
+  private scenario: MainScenario
   private body: SnakeBody
   private vx = 0
   private vy = 0
