@@ -4,7 +4,6 @@ import { EventsService, KEY } from '../../../teatre/dist/server/services/events.
 import { ScenariosService } from '../../../teatre/dist/server/services/scenarios.service'
 import { StatsService } from '../services/stats.service'
 import { MainScene } from '../scenes/main.scene'
-import { DefeatScenario } from './defeat.scenario'
 import { SnakeActor } from '../actors/snake.actor'
 import { FoodActor } from '../actors/food.actor'
 
@@ -20,7 +19,6 @@ export class MainScenario extends Scenario.Class {
   constructor(
     private stage: StageService,
     private events: EventsService,
-    private scenarios: ScenariosService,
     private stats: StatsService,
   ) {
     super()

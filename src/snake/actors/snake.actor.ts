@@ -5,11 +5,11 @@ import { StatsService } from '../services/stats.service'
 import { SceneObject } from '../../../teatre/dist/server/services/stage/scene-object'
 import { Sprite } from '../../../teatre/dist/server/services/stage/sprite'
 import { DraftSource } from '../../../teatre/dist/server/services/stage/sources/draft'
-import { SnakeBody } from './snake/body'
-import { ring } from '../../../teatre/dist/utils/etc'
-import { FoodActor } from './food.actor'
 import { MainScenario } from '../scenarios/main.scenario'
 import { DefeatScenario } from '../scenarios/defeat.scenario'
+import { SnakeBody } from './snake/body'
+import { FoodActor } from './food.actor'
+import { ring } from '../../../teatre/dist/utils/etc'
 
 @Actor()
 export class SnakeActor extends Actor.Class {
@@ -20,7 +20,6 @@ export class SnakeActor extends Actor.Class {
   private vy = 0
   
   private _isAlive = false
-  private _object: SceneObject
 
   constructor(
     private config: ConfigService,
@@ -32,29 +31,16 @@ export class SnakeActor extends Actor.Class {
     this.DEFAULT_BODY_CELL.x = this.config.stage.width / 2
     this.DEFAULT_BODY_CELL.y = this.config.stage.height / 2
     
-    const draft = new DraftSource({
-      width: this.config.stage.width,
-      height: this.config.stage.height,
-    })
+    const width = this.config.stage.width
+    const height = this.config.stage.height
+    const draft = new DraftSource({ width, height })
 
     this.body = new SnakeBody(draft)
-
-    this._object = new SceneObject({
-      x: 0,
-      y: 0,
-      z: 2,
-      width: this.config.stage.width,
-      height: this.config.stage.height,
-      sprites: [new Sprite(draft)],
-    })
+    this.object = new SceneObject({ x: 0, y: 0, z: 2, width, height, sprites: [new Sprite(draft)] })
   }
 
   get isAlive() {
     return this._isAlive
-  }
-
-  get object() {
-    return this._object
   }
 
   onInit(scenario: MainScenario): void {
@@ -69,8 +55,6 @@ export class SnakeActor extends Actor.Class {
 			: this.DEFAULT_BODY_CELL
 		
 		this.body.cells.length = 1
-
-    this.scenario.scene.add(this._object)
   }
 
   onDisable(): void {
@@ -78,8 +62,6 @@ export class SnakeActor extends Actor.Class {
     
     this.vx = 0
     this.vy = 0
-
-    this.scenario.scene.remove(this._object)
   }
 
   tick(): void {

@@ -6,8 +6,6 @@ import { StatsService } from '../services/stats.service';
   actors: [],
 })
 export class DefeatScenario extends Scenario.Class {
-  private data: any
-
   constructor(
     private scenarios: ScenariosService,
     private stats: StatsService,
@@ -15,9 +13,7 @@ export class DefeatScenario extends Scenario.Class {
     super()
   }
 
-  onEnable(data: any): void {
-    this.data = data
-
+  onEnable(): void {
     // todo: alert is not defined (because it's node)
     // alert(`YOU DIED\nSNAKE SIZE: ${this.stats.score}`);
     console.log(`YOU DIED. SNAKE SIZE: ${this.stats.score}`);

@@ -11,30 +11,16 @@ export class FoodActor extends Actor.Class {
   private scenario: MainScenario
   private color = 'gray'
   
-  private _object: SceneObject
-
   constructor(private config: ConfigService) {
     super()
 
-    const draft = new DraftSource({
-      width: 1,
-      height: 1,
-    })
+    const width = 1
+    const height = 1
+    const draft = new DraftSource({ width: 1, height: 1 })
 
-    this._object = new SceneObject({
-      x: 0,
-      y: 0,
-      z: 1,
-      width: 1,
-      height: 1,
-      sprites: [new Sprite(draft)],
-    })
+    this.object = new SceneObject({ x: 0, y: 0, z: 1, width, height, sprites: [new Sprite(draft)] })
 
     this._draw(draft)
-  }
-
-  get object() {
-    return this._object
   }
 
   onInit(scenario: MainScenario): void {
@@ -43,16 +29,14 @@ export class FoodActor extends Actor.Class {
 
   onEnable(): void {
     this.replace()
-
-    this.scenario.scene.add(this._object)
   }
 
   onDisable(): void {
-    this.scenario.scene.remove(this._object)
+    //
   }
 
 	at(x: number, y: number): boolean {
-		return x === this._object.x && y === this._object.y
+		return x === this.object.x && y === this.object.y
 	}
 
   replace(): void {
@@ -70,17 +54,15 @@ export class FoodActor extends Actor.Class {
 
 		const r = Math.floor(Math.random() * cells.length)
 
-		this._object.x = cells[r].x
-		this._object.y = cells[r].y
+		this.object.x = cells[r].x
+		this.object.y = cells[r].y
 	}
 
 	private _draw(draft): void {
 		draft.clearRect(0, 0, draft.width, draft.height)
 		draft.save()
 		draft.fillStyle = this.color
-
 		draft.fillRect(0, 0, 1, 1)
-
 		draft.restore()
 	}
 }
