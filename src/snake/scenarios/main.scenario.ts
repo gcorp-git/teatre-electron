@@ -1,9 +1,9 @@
 import { Scenario } from '../../../teatre/dist/server/decorators/scenario.decorator'
 import { EventsService, KEY } from '../../../teatre/dist/server/services/events.service'
-import { StatsService } from '../services/stats.service'
 import { MainScene } from '../scenes/main.scene'
 import { SnakeActor } from '../actors/snake.actor'
 import { FoodActor } from '../actors/food.actor'
+import { SubscriptionsService } from '../services/subscriptions.service'
 
 @Scenario({
   scene: MainScene,
@@ -12,18 +12,16 @@ import { FoodActor } from '../actors/food.actor'
 export class MainScenario extends Scenario.Class {
   private duration = 0
   private interval = 0.100
-  private offKeyDown: () => void
 
   constructor(
     private events: EventsService,
-    private stats: StatsService,
+    private subscriptions: SubscriptionsService,
   ) {
     super()
   }
 
   onEnable(): void {
-    this.stats.score = 1
-    this.offKeyDown = this.events.on(KEY.DOWN, ({ code }) => {
+    this.subscriptions.save(this.events.on(KEY.DOWN, ({ code }) => {
       let dx = 0
       let dy = 0
 
@@ -42,7 +40,7 @@ export class MainScenario extends Scenario.Class {
       }
 
       this.actor(SnakeActor).turn(dx, dy)
-    })
+    }))
   }
 
   onFrame(delta: number): void {
@@ -53,13 +51,5 @@ export class MainScenario extends Scenario.Class {
 
 			this.actor(SnakeActor).tick()
 		}
-  }
-
-  onUpdate(): void {
-    //
-  }
-
-  onDisable(): void {
-    this.offKeyDown()
   }
 }

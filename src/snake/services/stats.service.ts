@@ -4,5 +4,5 @@ import { Service } from '../../../teatre/dist/server/decorators/service.decorato
   static: true,
 })
 export class StatsService {
-  score: number = 0
+  score = 0
 }

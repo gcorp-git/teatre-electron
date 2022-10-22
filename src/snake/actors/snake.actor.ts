@@ -13,7 +13,7 @@ import { ring } from '../../../teatre/dist/utils/etc'
 
 @Actor()
 export class SnakeActor extends Actor.Class {
-  private DEFAULT_BODY_CELL: { x: number, y: number } = { x: 0, y: 0 }
+  private DEFAULT_BODY_CELL: { x: number, y: number }
   private scenario: MainScenario
   private body: SnakeBody
   private vx = 0
@@ -28,8 +28,10 @@ export class SnakeActor extends Actor.Class {
   ) {
     super()
 
-    this.DEFAULT_BODY_CELL.x = this.config.stage.width / 2
-    this.DEFAULT_BODY_CELL.y = this.config.stage.height / 2
+    this.DEFAULT_BODY_CELL = {
+      x: this.config.stage.width / 2,
+      y: this.config.stage.height / 2,
+    }
     
     const width = this.config.stage.width
     const height = this.config.stage.height
@@ -55,6 +57,8 @@ export class SnakeActor extends Actor.Class {
 			: this.DEFAULT_BODY_CELL
 		
 		this.body.cells.length = 1
+    
+    this.stats.score = 1
   }
 
   onDisable(): void {
@@ -83,8 +87,8 @@ export class SnakeActor extends Actor.Class {
   turn(dx: number, dy: number): void {
     if (!this._isAlive) return
 
-		let x = this.body.head.x + dx
-		let y = this.body.head.y + dy
+		const x = this.body.head.x + dx
+		const y = this.body.head.y + dy
 
 		if (this.body.neck && x === this.body.neck.x && y === this.body.neck.y) return
 
