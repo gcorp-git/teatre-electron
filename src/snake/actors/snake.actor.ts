@@ -85,7 +85,7 @@ export class SnakeActor extends Actor.Class {
   tick(): void {
     if (!this._isAlive) return
 
-		const food = this.scenario.food
+		const food = this.scenario.actor(FoodActor)
 		const { x, y } = this._getNextCoords()
 
 		if (food.at(x, y)) {

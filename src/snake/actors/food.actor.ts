@@ -4,6 +4,7 @@ import { SceneObject } from '../../../teatre/dist/server/services/stage/scene-ob
 import { Sprite } from '../../../teatre/dist/server/services/stage/sprite'
 import { DraftSource } from '../../../teatre/dist/server/services/stage/sources/draft'
 import { MainScenario } from '../scenarios/main.scenario'
+import { SnakeActor } from './snake.actor'
 
 @Actor()
 export class FoodActor extends Actor.Class {
@@ -55,7 +56,7 @@ export class FoodActor extends Actor.Class {
 	}
 
   replace(): void {
-		const snake = this.scenario.snake
+		const snake = this.scenario.actor(SnakeActor)
 		
 		const cells = []
 

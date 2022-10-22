@@ -13,9 +13,6 @@ import { FoodActor } from '../actors/food.actor'
   actors: [SnakeActor, FoodActor],
 })
 export class MainScenario extends Scenario.Class {
-  snake: SnakeActor
-  food: FoodActor
-
   private duration = 0
   private interval = 0.100
   private onKeyDown: (payload: { code: string }) => void
@@ -29,8 +26,6 @@ export class MainScenario extends Scenario.Class {
     super()
 
     this.onKeyDown = this._onKeyDown.bind(this)
-    this.snake = this.actors.get(SnakeActor) as SnakeActor
-    this.food = this.actors.get(FoodActor) as FoodActor
   }
 
   onEnable(): void {
@@ -45,7 +40,7 @@ export class MainScenario extends Scenario.Class {
 		if (this.duration >= this.interval) {
 			this.duration = 0
 
-			this.snake.tick()
+			this.actor(SnakeActor).tick()
 		}
   }
 
@@ -76,6 +71,6 @@ export class MainScenario extends Scenario.Class {
       case 'ArrowDown': { dy = +1 } break
     }
 
-    this.snake.turn(dx, dy)
+    this.actor(SnakeActor).turn(dx, dy)
   }
 }
