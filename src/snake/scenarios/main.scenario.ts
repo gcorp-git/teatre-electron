@@ -46,10 +46,10 @@ export class MainScenario extends Scenario.Class {
   onFrame(delta: number): void {
     this.duration += delta
 
-		if (this.duration >= this.interval) {
-			this.duration = 0
+    if (this.duration >= this.interval) {
+      this.duration = 0
 
-			this.actor(SnakeActor).tick()
-		}
+      this.actor(SnakeActor).tick()
+    }
   }
 }

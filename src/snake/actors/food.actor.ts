@@ -35,34 +35,34 @@ export class FoodActor extends Actor.Class {
     //
   }
 
-	at(x: number, y: number): boolean {
-		return x === this.object.x && y === this.object.y
-	}
+  at(x: number, y: number): boolean {
+    return x === this.object.x && y === this.object.y
+  }
 
   replace(): void {
-		const snake = this.scenario.actor(SnakeActor)
-		
-		const cells = []
+    const snake = this.scenario.actor(SnakeActor)
+    
+    const cells = []
 
-		for (let ix = 0; ix < this.config.stage.width; ix++) {
-			for (let iy = 0; iy < this.config.stage.height; iy++) {
-				if (snake.occupies(ix, iy)) continue
+    for (let ix = 0; ix < this.config.stage.width; ix++) {
+      for (let iy = 0; iy < this.config.stage.height; iy++) {
+        if (snake.occupies(ix, iy)) continue
 
-				cells.push({ x: ix, y: iy })
-			}
-		}
+        cells.push({ x: ix, y: iy })
+      }
+    }
 
-		const r = Math.floor(Math.random() * cells.length)
+    const r = Math.floor(Math.random() * cells.length)
 
-		this.object.x = cells[r].x
-		this.object.y = cells[r].y
-	}
+    this.object.x = cells[r].x
+    this.object.y = cells[r].y
+  }
 
-	private _draw(draft): void {
-		draft.clearRect(0, 0, draft.width, draft.height)
-		draft.save()
-		draft.fillStyle = this.color
-		draft.fillRect(0, 0, 1, 1)
-		draft.restore()
-	}
+  private _draw(draft): void {
+    draft.clearRect(0, 0, draft.width, draft.height)
+    draft.save()
+    draft.fillStyle = this.color
+    draft.fillRect(0, 0, 1, 1)
+    draft.restore()
+  }
 }

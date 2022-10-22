@@ -18,6 +18,6 @@ export class DefeatScenario extends Scenario.Class {
     // alert(`YOU DIED\nSNAKE SIZE: ${this.stats.score}`);
     console.log(`YOU DIED. SNAKE SIZE: ${this.stats.score}`);
 
-		this.scenarios.pop();
+    this.scenarios.pop();
   }
 }

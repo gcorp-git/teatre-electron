@@ -53,10 +53,10 @@ export class SnakeActor extends Actor.Class {
     this._isAlive = true
 
     this.body.cells[0] = this.body.cells.length
-			? this.body.head
-			: this.DEFAULT_BODY_CELL
-		
-		this.body.cells.length = 1
+      ? this.body.head
+      : this.DEFAULT_BODY_CELL
+    
+    this.body.cells.length = 1
     
     this.stats.score = 1
   }
@@ -71,15 +71,15 @@ export class SnakeActor extends Actor.Class {
   tick(): void {
     if (!this._isAlive) return
 
-		const food = this.scenario.actor(FoodActor)
-		const { x, y } = this._getNextCoords()
+    const food = this.scenario.actor(FoodActor)
+    const { x, y } = this._getNextCoords()
 
-		if (food.at(x, y)) {
-			this.eat(food)
-			food.replace()
-		} else {
-			this.place(x, y)
-		}
+    if (food.at(x, y)) {
+      this.eat(food)
+      food.replace()
+    } else {
+      this.place(x, y)
+    }
 
     if (!this._isAlive) this.scenarios.push(DefeatScenario)
   }
@@ -87,36 +87,36 @@ export class SnakeActor extends Actor.Class {
   turn(dx: number, dy: number): void {
     if (!this._isAlive) return
 
-		const x = this.body.head.x + dx
-		const y = this.body.head.y + dy
+    const x = this.body.head.x + dx
+    const y = this.body.head.y + dy
 
-		if (this.body.neck && x === this.body.neck.x && y === this.body.neck.y) return
+    if (this.body.neck && x === this.body.neck.x && y === this.body.neck.y) return
 
-		this.vx = dx
-		this.vy = dy
+    this.vx = dx
+    this.vy = dy
   }
 
-	place(x: number, y: number): void {
-		if (!this._isAlive) return
+  place(x: number, y: number): void {
+    if (!this._isAlive) return
 
-		if (x !== this.body.head.x || y !== this.body.head.y) {
-			if (this.body.has(x, y)) this._isAlive = false
+    if (x !== this.body.head.x || y !== this.body.head.y) {
+      if (this.body.has(x, y)) this._isAlive = false
 
-			this.body.place(x, y)
-		}
+      this.body.place(x, y)
+    }
 
-		this.body.draw()
-	}
+    this.body.draw()
+  }
 
-	occupies(x: number, y: number): boolean {
-		return this.body.has(x, y)
-	}
+  occupies(x: number, y: number): boolean {
+    return this.body.has(x, y)
+  }
 
   eat(food: FoodActor): void {
     if (!this._isAlive) return
 
-		this.body.add(food.object.x, food.object.y)
-		this.body.draw()
+    this.body.add(food.object.x, food.object.y)
+    this.body.draw()
 
     this.stats.score += 1
   }
